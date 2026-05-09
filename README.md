@@ -68,8 +68,7 @@ Sequelize will handle table creation automatically. You should see:
 
 ## Database Schema
 
-authors
-================================================================================
+### Authors
 Column          | Type           | Constraints                    | Description
 ----------------|----------------|--------------------------------|--------------------
 id              | INTEGER        | PRIMARY KEY, AUTO_INCREMENT    | Unique author ID
@@ -82,10 +81,7 @@ website         | VARCHAR(255)   | NULL                           | Personal web
 createdAt       | DATETIME       | NOT NULL                       | Record creation time
 updatedAt       | DATETIME       | NOT NULL                       | Last update time
 
-================================================================================
-
-members
-================================================================================
+### Members
 Column          | Type           | Constraints                    | Description
 ----------------|----------------|--------------------------------|--------------------
 id              | INTEGER        | PRIMARY KEY, AUTO_INCREMENT    | Unique member ID
@@ -102,10 +98,7 @@ updatedAt       | DATETIME       | NOT NULL                       | Last update 
 
 MembershipType Values: 'Basic', 'Premium', 'Student'
 
-================================================================================
-
-books
-================================================================================
+### Books
 Column          | Type           | Constraints                    | Description
 ----------------|----------------|--------------------------------|--------------------
 id              | INTEGER        | PRIMARY KEY, AUTO_INCREMENT    | Unique book ID
@@ -122,10 +115,7 @@ updatedAt       | DATETIME       | NOT NULL                       | Last update 
 
 Foreign Key: books.authorId → authors.id
 
-================================================================================
-
-borrow_records
-================================================================================
+### borrow_records
 Column          | Type           | Constraints                    | Description
 ----------------|----------------|--------------------------------|--------------------
 id              | INTEGER        | PRIMARY KEY, AUTO_INCREMENT    | Unique record ID
@@ -147,35 +137,11 @@ Foreign Keys:
 Status Values: 'Borrowed', 'Returned', 'Overdue'
 
 ## RELATIONSHIPS
-┌─────────────────────────────────────────────────────────────────────────────┐
-│ ONE-TO-MANY                                                                 │
-├─────────────────────────────────────────────────────────────────────────────┤
-│                                                                             │
-│   authors (1) ────────── has many ──────────► books (Many)                  │
-│                                                                             │
-│   Implementation:                                                           │
-│   - Author.hasMany(Book)                                                    │
-│   - Book.belongsTo(Author)                                                  │
-│   - Foreign key: books.authorId → authors.id                                │
-│                                                                             │
-└─────────────────────────────────────────────────────────────────────────────┘
 
-┌─────────────────────────────────────────────────────────────────────────────┐
-│ MANY-TO-MANY                                                                │
-├─────────────────────────────────────────────────────────────────────────────┤
-│                                                                             │
-│   members (Many) ────── borrows ──────► books (Many)                        │
-│                                                                             │
-│   Junction Table: borrow_records                                            │
-│                                                                             │
-│   Implementation:                                                           │
-│   - Member.belongsToMany(Book, { through: BorrowRecord })                   │
-│   - Book.belongsToMany(Member, { through: BorrowRecord })                   │
-│   - Foreign keys:                                                           │
-│        borrow_records.memberId → members.id                                 │
-│        borrow_records.bookId → books.id                                     │
-│                                                                             │
-└─────────────────────────────────────────────────────────────────────────────┘
+| Relationship Type | Entities          | Foreign Key Location    | Through Table    |
+|------------------|-------------------|------------------------|------------------|
+| One-to-Many      | Author → Book     | books.authorId         | N/A              |
+| Many-to-Many     | Member ↔ Book     | borrow_records         | borrow_records   |
 
 ## Example Requests & Responses
 
