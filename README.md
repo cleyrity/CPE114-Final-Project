@@ -275,9 +275,9 @@ library-api/
 │   ├── memberRoutes.js        # /api/members routes
 │   └── borrowRoutes.js        # /api/borrows routes
 └── middleware/
-    ├── logger.js              # Logs every request
-    ├── notFound.js            # Handles 404 errors
-    └── errorHandler.js        # Global error handler (4 params)
+|   ├── logger.js              # Logs every request
+|   ├── notFound.js            # Handles 404 errors
+|   └── errorHandler.js        # Global error handler (4 params)
 ├── docs/
 │   └── postman_collection.json
 ```
