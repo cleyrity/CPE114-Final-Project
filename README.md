@@ -1,4 +1,4 @@
-# Library Management System API 
+# Library Management System API 📖
 
 A REST-ful API for managing library operations including books, members, authors, and borrowing records. Built with Node.js, Express, Sequelize, and MySQL.
 
@@ -32,7 +32,48 @@ The data model mirrors how real libraries work: an author writes multiple books,
 git clone https://github.com/YOUR_USERNAME/library-api.git
 cd library-api
 npm install
+```
 
 ### 2.Configure Environment
+```bash
 cp .env.example .env
+```
+Fill in your database credentials in .env:
+```env
+DB_HOST=localhost
+DB_PORT=3000
+DB_NAME=library_db
+DB_USER=root
+DB_PASS=yourpassword
+PORT=3000
+```
 
+### 3. Create the database
+```sql
+CREATE DATABASE library_db;
+```
+
+### 4. Start the server 
+```bash
+node index.js or npm start
+```
+Sequelize will handle table creation automatically. You should see:
+```text
+✅ Database connected successfully
+✅ All models synced with database
+
+📚 LIBRARY MANAGEMENT API
+🚀 Server running on http://localhost:3000
+```
+
+## Database Schema
+authors
+Column	Type	Notes
+id	INTEGER	PK, auto increment
+name	VARCHAR(255)	required
+email	VARCHAR(255)	required, unique
+biography	TEXT	optional
+nationality	VARCHAR(255)	required
+birthDate	DATEONLY	optional
+website	VARCHAR(255)	optional
+createdAt / updatedAt	DATETIME	managed by Sequelize
